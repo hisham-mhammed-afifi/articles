@@ -11,11 +11,18 @@ import { MarkdownComponent } from 'ngx-markdown';
 })
 export class ArticleComponent {
   filePath = '';
+  dir = '';
 
   params = inject(ActivatedRoute).params;
+  QueryParams = inject(ActivatedRoute).queryParams;
+
   constructor() {
     this.params.subscribe((params) => {
       this.filePath = `${params['title']}.md`;
+    });
+
+    this.QueryParams.subscribe((params) => {
+      this.dir = params['dir'];
     });
   }
 }

@@ -30,3 +30,7 @@ body {
   background-color: rgba(0, 0, 0, 0.1);
   border: 2px solid rgba(0, 0, 0, 0.1);
 }
+
+pre {
+  direction: ltr !important;
+}
