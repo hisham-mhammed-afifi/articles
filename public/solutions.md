@@ -1,4 +1,5 @@
-### Factory Method Design Pattern
+<details>
+    <summary><h3>Factory Method Design Pattern</h3></summary>
 
 **Problem Statement Recap:**
 You need to create objects without specifying the exact class of the object that will be created. This is particularly useful when the exact type of the object isn't known until runtime.
@@ -6,15 +7,19 @@ You need to create objects without specifying the exact class of the object that
 **Solution Steps:**
 
 1. **Define a Product Interface:**
+
    - Create an interface that defines the common behavior for the objects that will be created by the factory method.
 
 2. **Implement Concrete Products:**
+
    - Implement the concrete classes that conform to the product interface.
 
 3. **Define a Creator Class:**
+
    - Create an abstract class or interface that declares the factory method, which returns an object of the product interface type.
 
 4. **Implement Concrete Creators:**
+
    - Implement concrete creator classes that override the factory method to return instances of concrete products.
 
 5. **Client Code:**
@@ -90,22 +95,31 @@ creator2 = new ConcreteCreator2();
 clientCode(creator2); // Will create and use ConcreteProduct2
 ```
 
-### Steps Explained:
+<details>
+    <summary><h3>Steps Explained:</h3></summary>
 
 1. **Define a Product Interface:**
+
    - Create a `Product` interface that declares the methods `methodA` and `methodB`.
 
 2. **Implement Concrete Products:**
+
    - Implement `ConcreteProduct1` and `ConcreteProduct2` classes that provide specific implementations for the methods declared in the `Product` interface.
 
 3. **Define a Creator Class:**
+
    - Create an abstract `Creator` class that declares the `createProduct` factory method. This method will return a `Product` object. The `someOperation` method uses the `createProduct` method to create a product and then perform operations on it.
 
 4. **Implement Concrete Creators:**
+
    - Implement `ConcreteCreator1` and `ConcreteCreator2` classes that override the `createProduct` method to return instances of `ConcreteProduct1` and `ConcreteProduct2`, respectively.
 
 5. **Client Code:**
+
    - The client code calls the `someOperation` method on the creator object. Depending on which concrete creator is used (`ConcreteCreator1` or `ConcreteCreator2`), it will create and use either `ConcreteProduct1` or `ConcreteProduct2`.
+
+   </details>
+</details>
 
 ---
 
@@ -117,15 +131,19 @@ You need to create families of related or dependent objects without specifying t
 **Solution Steps:**
 
 1. **Define Abstract Product Interfaces:**
+
    - Create interfaces for each type of product in the family.
 
 2. **Implement Concrete Products:**
+
    - Implement the concrete classes that conform to each product interface.
 
 3. **Define an Abstract Factory Interface:**
+
    - Create an interface that declares factory methods for creating each type of product.
 
 4. **Implement Concrete Factories:**
+
    - Implement concrete factory classes that override the factory methods to return instances of concrete products.
 
 5. **Client Code:**
@@ -216,15 +234,19 @@ clientCode(factory2); // Will create and use ConcreteProductA2 and ConcreteProdu
 ### Steps Explained:
 
 1. **Define Abstract Product Interfaces:**
+
    - Create `AbstractProductA` and `AbstractProductB` interfaces that declare methods for the products in the family.
 
 2. **Implement Concrete Products:**
+
    - Implement `ConcreteProductA1`, `ConcreteProductA2`, `ConcreteProductB1`, and `ConcreteProductB2` classes that provide specific implementations for the methods declared in the product interfaces.
 
 3. **Define an Abstract Factory Interface:**
+
    - Create an `AbstractFactory` interface that declares factory methods `createProductA` and `createProductB`. These methods will return `AbstractProductA` and `AbstractProductB` objects, respectively.
 
 4. **Implement Concrete Factories:**
+
    - Implement `ConcreteFactory1` and `ConcreteFactory2` classes that override the factory methods to return instances of the respective concrete products (`ConcreteProductA1`, `ConcreteProductA2`, `ConcreteProductB1`, and `ConcreteProductB2`).
 
 5. **Client Code:**
@@ -240,15 +262,19 @@ You need to construct a complex object step by step, allowing for more flexibili
 **Solution Steps:**
 
 1. **Define a Product Class:**
+
    - Create a class that represents the complex object to be built. This class should have fields for the various parts or options.
 
 2. **Define a Builder Interface:**
+
    - Create an interface that declares the methods for creating the different parts of the product.
 
 3. **Implement Concrete Builders:**
+
    - Implement concrete builder classes that provide specific implementations for the methods declared in the builder interface.
 
 4. **Define a Director Class:**
+
    - Create a director class that uses a builder to construct the product step by step. The director class controls the construction process.
 
 5. **Client Code:**
@@ -359,15 +385,19 @@ clientCode();
 ### Steps Explained:
 
 1. **Define a Product Class:**
+
    - Create a `Product` class with fields `partA`, `partB`, and `partC` representing the different parts of the product. Include a `show` method to display the product parts.
 
 2. **Define a Builder Interface:**
+
    - Create a `Builder` interface that declares methods `buildPartA`, `buildPartB`, `buildPartC`, and `getResult`. These methods define the steps to build the product and retrieve the final product.
 
 3. **Implement Concrete Builders:**
+
    - Implement `ConcreteBuilder1` and `ConcreteBuilder2` classes that provide specific implementations for the methods declared in the `Builder` interface. Each builder class maintains an instance of the `Product` class and constructs the product step by step.
 
 4. **Define a Director Class:**
+
    - Create a `Director` class that controls the construction process. The `Director` class has a `setBuilder` method to set the builder and a `construct` method that calls the builder's methods to build the product step by step.
 
 5. **Client Code:**
@@ -383,9 +413,11 @@ You need to create new objects by copying existing ones, which is particularly u
 **Solution Steps:**
 
 1. **Define a Prototype Interface:**
+
    - Create an interface that declares a method for cloning objects.
 
 2. **Implement Concrete Prototypes:**
+
    - Implement concrete classes that conform to the prototype interface and provide specific implementations for the cloning method.
 
 3. **Client Code:**
@@ -446,9 +478,11 @@ clientCode();
 ### Steps Explained:
 
 1. **Define a Prototype Interface:**
+
    - Create a `Prototype` interface that declares a `clone` method. This method will be used to clone objects.
 
 2. **Implement Concrete Prototypes:**
+
    - Implement `ConcretePrototype1` and `ConcretePrototype2` classes that conform to the `Prototype` interface. Each class provides specific implementations for the `clone` method, which creates and returns a new instance of the class with the same state as the original object.
 
 3. **Client Code:**
@@ -516,9 +550,11 @@ You need to ensure a class has only one instance and provide a global point of a
 **Solution Steps:**
 
 1. **Private Constructor:**
+
    - Ensure that the class constructor is private to prevent direct instantiation.
 
 2. **Static Variable:**
+
    - Declare a static variable to hold the single instance of the class.
 
 3. **Public Static Method:**
@@ -571,12 +607,15 @@ clientCode();  // Output: Both variables contain the same instance.
 ### Steps Explained:
 
 1. **Private Constructor:**
+
    - The `Singleton` class has a private constructor to prevent the creation of instances from outside the class. This ensures that the class can only be instantiated from within the class itself.
 
 2. **Static Variable:**
+
    - The `instance` static variable holds the single instance of the `Singleton` class. This variable is initialized to `null` and will be assigned the single instance when `getInstance` is first called.
 
 3. **Public Static Method:**
+
    - The `getInstance` method is a public static method that returns the single instance of the `Singleton` class. If the instance does not exist (`null`), it creates a new instance. If it does exist, it returns the existing instance.
 
 4. **Client Code:**
@@ -653,12 +692,15 @@ You need to allow objects with incompatible interfaces to work together. This is
 **Solution Steps:**
 
 1. **Define Target Interface:**
+
    - Create an interface that the client expects.
 
 2. **Implement Adaptee Class:**
+
    - Implement the existing class that needs to be adapted.
 
 3. **Implement Adapter Class:**
+
    - Create an adapter class that implements the target interface and holds a reference to an instance of the adaptee. Implement the methods of the target interface in the adapter to delegate calls to the adaptee.
 
 4. **Client Code:**
@@ -709,12 +751,15 @@ clientCode(adapter);  // Output: Adaptee: specificRequest called
 ### Steps Explained:
 
 1. **Define Target Interface:**
+
    - Create a `Target` interface with a method `request` that the client expects. This defines the interface that the client code will use.
 
 2. **Implement Adaptee Class:**
+
    - Implement the `Adaptee` class with a method `specificRequest`. This class has an existing interface that needs to be adapted to the `Target` interface.
 
 3. **Implement Adapter Class:**
+
    - Create an `Adapter` class that implements the `Target` interface and holds a reference to an instance of the `Adaptee` class. Implement the `request` method in the `Adapter` to delegate the call to the `Adaptee`'s `specificRequest` method.
 
 4. **Client Code:**
@@ -799,18 +844,23 @@ You need to decouple an abstraction from its implementation so that both can var
 **Solution Steps:**
 
 1. **Define Abstraction Interface:**
+
    - Create an interface or abstract class for the abstraction that declares methods that the client will use.
 
 2. **Implement Refined Abstractions:**
+
    - Create concrete classes that extend the abstraction interface or abstract class.
 
 3. **Define Implementor Interface:**
+
    - Create an interface for the implementor that declares methods to be implemented by the concrete implementors.
 
 4. **Implement Concrete Implementors:**
+
    - Implement concrete classes that conform to the implementor interface.
 
 5. **Associate Implementor with Abstraction:**
+
    - Modify the abstraction to include a reference to an implementor object. Implement methods in the abstraction that delegate calls to the implementor.
 
 6. **Client Code:**
@@ -880,18 +930,23 @@ clientCode(abstractionB);  // Output: ConcreteImplementorB: operationImpl
 ### Steps Explained:
 
 1. **Define Abstraction Interface:**
+
    - Create an abstract class `Abstraction` that declares an `operation` method. This class holds a reference to an `Implementor` object.
 
 2. **Implement Refined Abstractions:**
+
    - Create a `RefinedAbstraction` class that extends `Abstraction` and implements the `operation` method by delegating the call to the `Implementor` object.
 
 3. **Define Implementor Interface:**
+
    - Create an `Implementor` interface that declares the `operationImpl` method. This interface will be implemented by concrete implementors.
 
 4. **Implement Concrete Implementors:**
+
    - Implement `ConcreteImplementorA` and `ConcreteImplementorB` classes that provide specific implementations for the `operationImpl` method.
 
 5. **Associate Implementor with Abstraction:**
+
    - In the `Abstraction` class constructor, associate the `Implementor` object with the abstraction. The `operation` method in `RefinedAbstraction` calls the `operationImpl` method on the `Implementor`.
 
 6. **Client Code:**
@@ -998,12 +1053,15 @@ You need to work with tree structures of objects where individual objects and gr
 **Solution Steps:**
 
 1. **Define Component Interface:**
+
    - Create an interface that declares operations common to both simple and complex objects.
 
 2. **Implement Leaf Class:**
+
    - Implement the leaf class that represents the end objects in a composition. A leaf cannot have any children.
 
 3. **Implement Composite Class:**
+
    - Implement the composite class that represents complex components that may have children. This class implements the component interface and also maintains a collection of child components.
 
 4. **Client Code:**
@@ -1081,12 +1139,15 @@ clientCode();
 ### Steps Explained:
 
 1. **Define Component Interface:**
+
    - Create a `Graphic` interface that declares a `draw` method. Both leaf and composite objects will implement this interface.
 
 2. **Implement Leaf Class:**
+
    - Implement `Circle` and `Square` classes that represent simple graphic objects. Each class implements the `draw` method to perform its specific drawing operation.
 
 3. **Implement Composite Class:**
+
    - Implement a `CompositeGraphic` class that represents a complex graphic object. This class implements the `Graphic` interface and maintains a collection of child `Graphic` objects. The `draw` method in `CompositeGraphic` iterates over its children and calls their `draw` methods.
 
 4. **Client Code:**
@@ -1183,15 +1244,19 @@ You need to add responsibilities to individual objects dynamically without affec
 **Solution Steps:**
 
 1. **Define Component Interface:**
+
    - Create an interface that defines the methods to be implemented by the base component and decorators.
 
 2. **Implement Concrete Component:**
+
    - Implement the concrete class that conforms to the component interface. This class represents the core functionality.
 
 3. **Implement Base Decorator:**
+
    - Create an abstract decorator class that implements the component interface and holds a reference to a component object. This class delegates the operations to the component.
 
 4. **Implement Concrete Decorators:**
+
    - Implement concrete decorator classes that extend the base decorator class and add new behavior before or after calling the base component's methods.
 
 5. **Client Code:**
@@ -1269,15 +1334,19 @@ clientCode(decorator2);
 ### Steps Explained:
 
 1. **Define Component Interface:**
+
    - Create a `Component` interface with an `operation` method. This interface will be implemented by both the base component and decorators.
 
 2. **Implement Concrete Component:**
+
    - Implement a `ConcreteComponent` class that provides the core functionality by implementing the `operation` method.
 
 3. **Implement Base Decorator:**
+
    - Create an abstract `Decorator` class that implements the `Component` interface and holds a reference to a `Component` object. The `Decorator` class delegates the `operation` method to the component it wraps.
 
 4. **Implement Concrete Decorators:**
+
    - Implement `ConcreteDecoratorA` and `ConcreteDecoratorB` classes that extend the `Decorator` class. These classes add new behavior before or after calling the `operation` method of the base component.
 
 5. **Client Code:**
@@ -1362,15 +1431,19 @@ You need to provide a simplified interface to a complex subsystem of classes. Th
 **Solution Steps:**
 
 1. **Identify the Subsystem:**
+
    - Determine the complex subsystem or a set of classes that need to be simplified.
 
 2. **Define a Facade Interface:**
+
    - Create a facade class that provides a simplified interface to the subsystem.
 
 3. **Implement Subsystem Classes:**
+
    - Implement the subsystem classes that perform the actual work. These classes are usually hidden from the client.
 
 4. **Implement Facade Methods:**
+
    - Implement methods in the facade class that interact with the subsystem classes. These methods provide a simplified interface to the client.
 
 5. **Client Code:**
@@ -1435,15 +1508,19 @@ clientCode(facade);
 ### Steps Explained:
 
 1. **Identify the Subsystem:**
+
    - Identify the complex subsystem that you want to simplify. This subsystem may consist of multiple classes with complex interactions.
 
 2. **Define a Facade Interface:**
+
    - Create a `Facade` class that will provide a simplified interface to the subsystem. This class will interact with the subsystem on behalf of the client.
 
 3. **Implement Subsystem Classes:**
+
    - Implement the subsystem classes (`SubsystemA`, `SubsystemB`, etc.). These classes contain the detailed implementation of the subsystem's functionality.
 
 4. **Implement Facade Methods:**
+
    - Implement methods in the `Facade` class that delegate calls to the subsystem classes. These methods provide a simplified interface to the client by hiding the complexity of the subsystem.
 
 5. **Client Code:**
@@ -1552,15 +1629,19 @@ You need to efficiently manage a large number of fine-grained objects that share
 **Solution Steps:**
 
 1. **Identify Intrinsic and Extrinsic State:**
+
    - Determine the intrinsic (shared) and extrinsic (unique) state of objects. The intrinsic state is stored in flyweight objects, while the extrinsic state is stored outside and passed to the flyweight objects when needed.
 
 2. **Define Flyweight Interface:**
+
    - Create an interface that declares methods for using the flyweight objects.
 
 3. **Implement Concrete Flyweights:**
+
    - Implement concrete flyweight classes that store the intrinsic state and implement the methods declared in the flyweight interface.
 
 4. **Create Flyweight Factory:**
+
    - Implement a factory that creates and manages flyweight objects, ensuring that they are shared properly.
 
 5. **Client Code:**
@@ -1649,15 +1730,19 @@ clientCode();
 ### Steps Explained:
 
 1. **Identify Intrinsic and Extrinsic State:**
+
    - Determine which parts of the object state are shared (intrinsic) and which parts are unique (extrinsic). The intrinsic state is stored within the flyweight objects, while the extrinsic state is passed in as needed.
 
 2. **Define Flyweight Interface:**
+
    - Create a `Flyweight` interface that declares an `operation` method. This interface will be implemented by all concrete flyweight classes.
 
 3. **Implement Concrete Flyweights:**
+
    - Implement a `ConcreteFlyweight` class that stores the intrinsic state and implements the `operation` method. The `operation` method takes the extrinsic state as a parameter.
 
 4. **Create Flyweight Factory:**
+
    - Implement a `FlyweightFactory` class that manages a collection of flyweight objects. The `getFlyweight` method returns a flyweight object, creating it if it does not already exist. The `listFlyweights` method lists all existing flyweights.
 
 5. **Client Code:**
@@ -1783,12 +1868,15 @@ You need to control access to an object by providing a surrogate or placeholder 
 **Solution Steps:**
 
 1. **Define Subject Interface:**
+
    - Create an interface that defines the common methods for both the real subject and the proxy.
 
 2. **Implement Real Subject:**
+
    - Implement the class that represents the actual object. This class provides the core functionality.
 
 3. **Implement Proxy Class:**
+
    - Implement a proxy class that implements the subject interface and holds a reference to the real subject. The proxy controls access to the real subject and may add additional functionality.
 
 4. **Client Code:**
@@ -1855,12 +1943,15 @@ clientCode(proxy);
 ### Steps Explained:
 
 1. **Define Subject Interface:**
+
    - Create a `Subject` interface that declares a `request` method. Both the real subject and the proxy will implement this interface.
 
 2. **Implement Real Subject:**
+
    - Implement a `RealSubject` class that provides the core functionality by implementing the `request` method.
 
 3. **Implement Proxy Class:**
+
    - Implement a `Proxy` class that also implements the `Subject` interface. The `Proxy` class holds a reference to a `RealSubject` object and controls access to it. The `request` method in the proxy checks access permissions, forwards the request to the real subject, and logs the access.
 
 4. **Client Code:**
@@ -1926,12 +2017,15 @@ You need to decouple the sender of a request from its receiver by allowing multi
 **Solution Steps:**
 
 1. **Define Handler Interface:**
+
    - Create an interface that declares a method for handling requests and a method to set the next handler in the chain.
 
 2. **Implement Concrete Handlers:**
+
    - Implement concrete handler classes that process the request or pass it to the next handler in the chain.
 
 3. **Create a Chain of Handlers:**
+
    - Assemble the chain by setting the next handler for each handler.
 
 4. **Client Code:**
@@ -2030,12 +2124,15 @@ clientCode(handlerChain);
 ### Steps Explained:
 
 1. **Define Handler Interface:**
+
    - Create a `Handler` interface that declares `setNext` and `handle` methods. The `setNext` method sets the next handler in the chain, and the `handle` method processes the request or forwards it to the next handler.
 
 2. **Implement Concrete Handlers:**
+
    - Implement concrete handler classes (`ConcreteHandler1`, `ConcreteHandler2`, `ConcreteHandler3`) that process specific requests. If a handler cannot process the request, it calls the `handle` method of the next handler in the chain.
 
 3. **Create a Chain of Handlers:**
+
    - Assemble the chain by setting the next handler for each handler. This creates a linked sequence of handlers.
 
 4. **Client Code:**
@@ -2161,15 +2258,19 @@ You need to encapsulate a request as an object, thereby allowing for parameteriz
 **Solution Steps:**
 
 1. **Define Command Interface:**
+
    - Create an interface that declares a method for executing commands.
 
 2. **Implement Concrete Commands:**
+
    - Implement concrete command classes that execute specific actions.
 
 3. **Define Receiver Class:**
+
    - Create a receiver class that performs the actual work.
 
 4. **Implement Invoker Class:**
+
    - Implement an invoker class that holds a command and calls its execute method.
 
 5. **Client Code:**
@@ -2257,15 +2358,19 @@ clientCode();
 ### Steps Explained:
 
 1. **Define Command Interface:**
+
    - Create a `Command` interface that declares an `execute` method. This interface will be implemented by all concrete command classes.
 
 2. **Implement Concrete Commands:**
+
    - Implement `ConcreteCommandA` and `ConcreteCommandB` classes that execute specific actions by calling methods on the receiver.
 
 3. **Define Receiver Class:**
+
    - Create a `Receiver` class that contains the methods (`actionA` and `actionB`) that perform the actual work. The receiver methods are called by the command objects.
 
 4. **Implement Invoker Class:**
+
    - Implement an `Invoker` class that holds a command object and calls its `execute` method. The invoker is responsible for initiating the command execution.
 
 5. **Client Code:**
@@ -2359,13 +2464,13 @@ function clientCode() {
     const commandManager = new CommandManager();
 
     const insertCommand = new InsertCommand(editor, "Hello, ");
-    commandManager.executeCommand(insertCommand);  // Output: TextEditor: Current content: Hello, 
+    commandManager.executeCommand(insertCommand);  // Output: TextEditor: Current content: Hello,
 
     const insertCommand2 = new InsertCommand(editor, "world!");
     commandManager.executeCommand(insertCommand2);  // Output: TextEditor: Current content: Hello, world!
 
-    commandManager.undoCommand();  // Output: TextEditor: Current content: Hello, 
-    commandManager.undoCommand();  // Output: TextEditor: Current content: 
+    commandManager.undoCommand();  // Output: TextEditor: Current content: Hello,
+    commandManager.undoCommand();  // Output: TextEditor: Current content:
 }
 
 // Usage
@@ -2384,15 +2489,19 @@ You need to provide a way to access the elements of a collection sequentially wi
 **Solution Steps:**
 
 1. **Define Iterator Interface:**
+
    - Create an interface that declares methods for iterating over elements (e.g., `next`, `hasNext`).
 
 2. **Define Collection Interface:**
+
    - Create an interface for the collection that declares a method to create an iterator.
 
 3. **Implement Concrete Iterator:**
+
    - Implement a concrete iterator class that conforms to the iterator interface.
 
 4. **Implement Concrete Collection:**
+
    - Implement a concrete collection class that conforms to the collection interface and returns an instance of the concrete iterator.
 
 5. **Client Code:**
@@ -2480,15 +2589,19 @@ clientCode(collection);
 ### Steps Explained:
 
 1. **Define Iterator Interface:**
+
    - Create an `Iterator` interface that declares the methods `hasNext` and `next`. `hasNext` checks if there are more elements to iterate, and `next` returns the next element.
 
 2. **Define Collection Interface:**
+
    - Create a `Collection` interface that declares a `createIterator` method. This method returns an iterator for the collection.
 
 3. **Implement Concrete Iterator:**
+
    - Implement a `ConcreteIterator` class that maintains a reference to the collection and a position index. It implements the `hasNext` and `next` methods to iterate over the collection.
 
 4. **Implement Concrete Collection:**
+
    - Implement a `ConcreteCollection` class that maintains a list of items. It provides methods to add items, get the length of the collection, retrieve items by index, and create an iterator.
 
 5. **Client Code:**
@@ -2632,15 +2745,19 @@ You need to reduce the complexity of communication between multiple objects or c
 **Solution Steps:**
 
 1. **Define Mediator Interface:**
+
    - Create an interface that declares methods for communicating with colleagues.
 
 2. **Define Colleague Interface:**
+
    - Create an interface for the colleague classes that defines a method to set the mediator.
 
 3. **Implement Concrete Mediator:**
+
    - Implement the concrete mediator class that coordinates the communication between colleague objects.
 
 4. **Implement Concrete Colleagues:**
+
    - Implement concrete colleague classes that communicate through the mediator.
 
 5. **Client Code:**
@@ -2730,15 +2847,19 @@ clientCode();
 ### Steps Explained:
 
 1. **Define Mediator Interface:**
+
    - Create a `Mediator` interface that declares a `notify` method. This method is used by colleagues to send events to the mediator.
 
 2. **Define Colleague Interface:**
+
    - Create an abstract `Colleague` class that holds a reference to the mediator. This class will be extended by concrete colleague classes.
 
 3. **Implement Concrete Mediator:**
+
    - Implement a `ConcreteMediator` class that coordinates communication between colleague objects. It holds references to the colleagues and defines the logic for reacting to events.
 
 4. **Implement Concrete Colleagues:**
+
    - Implement `ConcreteColleague1` and `ConcreteColleague2` classes that extend the `Colleague` class. These classes communicate with each other through the mediator by calling the mediator's `notify` method.
 
 5. **Client Code:**
@@ -2826,12 +2947,15 @@ You need to capture and externalize an object's internal state so that it can be
 **Solution Steps:**
 
 1. **Define Memento Class:**
+
    - Create a memento class that stores the internal state of the originator. This class should only expose the necessary state to the originator.
 
 2. **Define Originator Class:**
+
    - Implement the originator class that creates and restores its state using memento objects. The originator knows how to save its state into a memento and restore it from a memento.
 
 3. **Define Caretaker Class:**
+
    - Implement a caretaker class that is responsible for keeping the mementos. It requests mementos from the originator and restores the originator's state when needed.
 
 4. **Client Code:**
@@ -2931,12 +3055,15 @@ clientCode();
 ### Steps Explained:
 
 1. **Define Memento Class:**
+
    - The `Memento` class stores the state of the originator. It has a constructor to initialize the state and a method to retrieve the stored state.
 
 2. **Define Originator Class:**
+
    - The `Originator` class has methods to set and get its state. It also has methods to save its current state to a memento and restore its state from a memento.
 
 3. **Define Caretaker Class:**
+
    - The `Caretaker` class is responsible for keeping track of the memento objects. It has methods to add mementos to a list and retrieve mementos from the list.
 
 4. **Client Code:**
@@ -3035,15 +3162,19 @@ You need to create a one-to-many dependency between objects so that when one obj
 **Solution Steps:**
 
 1. **Define Subject Interface:**
+
    - Create an interface that declares methods for attaching, detaching, and notifying observers.
 
 2. **Define Observer Interface:**
+
    - Create an interface that declares the update method, which will be called by the subject.
 
 3. **Implement Concrete Subject:**
+
    - Implement the concrete subject class that maintains a list of observers and notifies them of state changes.
 
 4. **Implement Concrete Observers:**
+
    - Implement concrete observer classes that update their state based on the subject's state changes.
 
 5. **Client Code:**
@@ -3144,15 +3275,19 @@ clientCode();
 ### Steps Explained:
 
 1. **Define Subject Interface:**
+
    - Create a `Subject` interface that declares methods for attaching, detaching, and notifying observers (`attach`, `detach`, and `notify`).
 
 2. **Define Observer Interface:**
+
    - Create an `Observer` interface that declares an `update` method. This method will be called by the subject to notify observers of state changes.
 
 3. **Implement Concrete Subject:**
+
    - Implement a `ConcreteSubject` class that maintains a list of observers and a state. The `setState` method updates the state and calls the `notify` method to update all observers.
 
 4. **Implement Concrete Observers:**
+
    - Implement `ConcreteObserverA` and `ConcreteObserverB` classes that implement the `Observer` interface. These classes update their state based on the subject's state changes.
 
 5. **Client Code:**
@@ -3264,12 +3399,15 @@ You need to allow an object to change its behavior when its internal state chang
 **Solution Steps:**
 
 1. **Define State Interface:**
+
    - Create an interface that declares methods that correspond to the various behaviors of the context.
 
 2. **Implement Concrete States:**
+
    - Implement concrete state classes that implement the state interface. Each class represents a different state of the context.
 
 3. **Define Context Class:**
+
    - Implement the context class that maintains an instance of a concrete state class and delegates state-specific behavior to this instance.
 
 4. **Client Code:**
@@ -3332,12 +3470,15 @@ clientCode();
 ### Steps Explained:
 
 1. **Define State Interface:**
+
    - Create a `State` interface that declares the `handle` method. This method takes a context object as a parameter and defines the behavior associated with the state.
 
 2. **Implement Concrete States:**
+
    - Implement `ConcreteStateA` and `ConcreteStateB` classes that implement the `State` interface. Each class provides its specific implementation of the `handle` method and transitions the context to another state.
 
 3. **Define Context Class:**
+
    - Implement a `Context` class that maintains a reference to an instance of a `State` object. The `transitionTo` method changes the current state, and the `request` method delegates the request to the current state's `handle` method.
 
 4. **Client Code:**
@@ -3420,12 +3561,15 @@ You need to define a family of algorithms, encapsulate each one, and make them i
 **Solution Steps:**
 
 1. **Define Strategy Interface:**
+
    - Create an interface that declares the method for the algorithm.
 
 2. **Implement Concrete Strategies:**
+
    - Implement concrete strategy classes that implement the strategy interface.
 
 3. **Define Context Class:**
+
    - Implement the context class that maintains a reference to a strategy object and uses it to execute the algorithm.
 
 4. **Client Code:**
@@ -3492,12 +3636,15 @@ clientCode();
 ### Steps Explained:
 
 1. **Define Strategy Interface:**
+
    - Create a `Strategy` interface that declares the `execute` method. This method will be implemented by all concrete strategy classes.
 
 2. **Implement Concrete Strategies:**
+
    - Implement `ConcreteStrategyAdd`, `ConcreteStrategySubtract`, and `ConcreteStrategyMultiply` classes that implement the `Strategy` interface. Each class provides its specific implementation of the `execute` method.
 
 3. **Define Context Class:**
+
    - Implement a `Context` class that maintains a reference to a `Strategy` object. The `setStrategy` method sets the current strategy, and the `executeStrategy` method calls the `execute` method on the current strategy.
 
 4. **Client Code:**
@@ -3627,9 +3774,11 @@ You need to define the skeleton of an algorithm in a method, deferring some step
 **Solution Steps:**
 
 1. **Define Abstract Base Class:**
+
    - Create an abstract class that defines the template method. The template method should call abstract methods that will be implemented by subclasses.
 
 2. **Implement Concrete Subclasses:**
+
    - Implement concrete subclasses that provide specific implementations for the abstract methods defined in the base class.
 
 3. **Client Code:**
@@ -3718,9 +3867,11 @@ clientCode(new ConcreteClass2());
 ### Steps Explained:
 
 1. **Define Abstract Base Class:**
+
    - Create an abstract class `AbstractClass` that defines the `templateMethod`. This method calls a series of operations, some of which have default implementations (`baseOperation1`, `baseOperation2`) and others that are abstract (`requiredOperations1`, `requiredOperations2`). A hook method (`hook`) is also provided, which can be optionally overridden by subclasses.
 
 2. **Implement Concrete Subclasses:**
+
    - Implement `ConcreteClass1` and `ConcreteClass2` classes that extend `AbstractClass`. These subclasses provide specific implementations for the abstract methods defined in the base class. `ConcreteClass2` also overrides the hook method to provide additional behavior.
 
 3. **Client Code:**
@@ -3799,15 +3950,19 @@ You need to add further operations to objects without modifying their structure.
 **Solution Steps:**
 
 1. **Define Visitor Interface:**
+
    - Create an interface that declares visit methods for each type of element.
 
 2. **Define Element Interface:**
+
    - Create an interface that declares an accept method, which takes a visitor as an argument.
 
 3. **Implement Concrete Visitors:**
+
    - Implement concrete visitor classes that provide specific implementations for the visit methods.
 
 4. **Implement Concrete Elements:**
+
    - Implement concrete element classes that implement the accept method to call the appropriate visitor method.
 
 5. **Client Code:**
@@ -3891,15 +4046,19 @@ clientCode(elements, visitor2);
 ### Steps Explained:
 
 1. **Define Visitor Interface:**
+
    - Create a `Visitor` interface that declares visit methods for each type of element. For example, `visitConcreteElementA` and `visitConcreteElementB`.
 
 2. **Define Element Interface:**
+
    - Create an `Element` interface that declares an `accept` method. This method takes a visitor as an argument.
 
 3. **Implement Concrete Visitors:**
+
    - Implement `ConcreteVisitor1` and `ConcreteVisitor2` classes that implement the `Visitor` interface. Each class provides specific implementations for the visit methods.
 
 4. **Implement Concrete Elements:**
+
    - Implement `ConcreteElementA` and `ConcreteElementB` classes that implement the `Element` interface. Each class implements the `accept` method to call the appropriate visit method on the visitor.
 
 5. **Client Code:**
@@ -3983,4 +4142,3 @@ clientCode(files, fileVisitor2);
 ```
 
 In this example, the `FileVisitor` interface acts as the visitor, and `TextFile` and `ImageFile` classes act as elements. The visitors perform operations on the files without modifying their classes.
-
