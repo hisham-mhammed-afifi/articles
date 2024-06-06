@@ -1,5 +1,7 @@
 <details>
-    <summary><h3>Factory Method Design Pattern</h3></summary>
+    <summary>Factory Method</summary>
+    
+### Factory Method
 
 **Problem Statement Recap:**
 You need to create objects without specifying the exact class of the object that will be created. This is particularly useful when the exact type of the object isn't known until runtime.
@@ -96,7 +98,7 @@ clientCode(creator2); // Will create and use ConcreteProduct2
 ```
 
 <details>
-    <summary><h3>Steps Explained:</h3></summary>
+    <summary>Steps Explained:</summary>
 
 1. **Define a Product Interface:**
 
@@ -118,12 +120,15 @@ clientCode(creator2); // Will create and use ConcreteProduct2
 
    - The client code calls the `someOperation` method on the creator object. Depending on which concrete creator is used (`ConcreteCreator1` or `ConcreteCreator2`), it will create and use either `ConcreteProduct1` or `ConcreteProduct2`.
 
-   </details>
+</details>
 </details>
 
 ---
 
-### Abstract Factory Design Pattern
+<details>
+    <summary>Abstract Factory</summary>
+
+### Abstract Factory
 
 **Problem Statement Recap:**
 You need to create families of related or dependent objects without specifying their concrete classes. This is particularly useful when the system needs to be independent of how its objects are created, composed, and represented.
@@ -231,7 +236,8 @@ factory2 = new ConcreteFactory2();
 clientCode(factory2); // Will create and use ConcreteProductA2 and ConcreteProductB2
 ```
 
-### Steps Explained:
+<details>
+    <summary>Steps Explained:</summary>
 
 1. **Define Abstract Product Interfaces:**
 
@@ -251,6 +257,10 @@ clientCode(factory2); // Will create and use ConcreteProductA2 and ConcreteProdu
 
 5. **Client Code:**
    - The client code calls the factory methods on the `AbstractFactory` object to create families of related products. Depending on which concrete factory is used (`ConcreteFactory1` or `ConcreteFactory2`), it will create and use different combinations of product families.
+
+</details>
+
+</details>
 
 ---
 
@@ -3553,6 +3563,9 @@ In this example, the `TrafficLightContext` class acts as the context, and `RedLi
 
 ---
 
+<details>
+    <summary>Strategy Design Pattern</summary>
+
 ### Strategy Design Pattern
 
 **Problem Statement Recap:**
@@ -3632,6 +3645,9 @@ function clientCode() {
 // Usage
 clientCode();
 ```
+
+<details>
+    <summary>Steps Explained:</summary>
 
 ### Steps Explained:
 
@@ -3764,7 +3780,14 @@ clientCode();
 
 In this example, the `SortingContext` class acts as the context, and `BubbleSortStrategy`, `QuickSortStrategy`, and `MergeSortStrategy` classes act as concrete strategies. The context dynamically changes the sorting strategy based on the client's request.
 
+</details>
+
+</details>
+
 ---
+
+<details>
+    <summary>Template Method Design Pattern</summary>
 
 ### Template Method Design Pattern
 
@@ -3864,7 +3887,8 @@ clientCode(new ConcreteClass2());
 // ConcreteClass2: Overridden Hook
 ```
 
-### Steps Explained:
+<details>
+    <summary>Steps Explained:</summary>
 
 1. **Define Abstract Base Class:**
 
@@ -3940,7 +3964,14 @@ clientCode(new XMLDataProcessor());
 
 In this example, the `DataProcessor` class acts as the abstract base class, and `CSVDataProcessor` and `XMLDataProcessor` classes act as concrete subclasses. The concrete subclasses provide specific implementations for processing data in different formats.
 
+</details>
+
+</details>
+
 ---
+
+<details>
+    <summary>Visitor Design Pattern</summary>
 
 ### Visitor Design Pattern
 
@@ -4043,7 +4074,8 @@ clientCode(elements, visitor2);
 // ConcreteVisitor2: Visiting ConcreteElementB.
 ```
 
-### Steps Explained:
+<details>
+    <summary>Steps Explained:</summary>
 
 1. **Define Visitor Interface:**
 
@@ -4142,3 +4174,7 @@ clientCode(files, fileVisitor2);
 ```
 
 In this example, the `FileVisitor` interface acts as the visitor, and `TextFile` and `ImageFile` classes act as elements. The visitors perform operations on the files without modifying their classes.
+
+</details>
+
+</details>
