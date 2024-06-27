@@ -1,19 +1,15 @@
 <div class="container">
   <div class="flex">
-    <a class="btn" routerLink="/dotnet-backend" routerLinkActive="active">
-      ASP.NET Core
-    </a>
-    <a class="btn" routerLink="/oop-python" routerLinkActive="active">
-      OOP with python example
-    </a>
+    @for(let link of links) {
     <a
       class="btn"
-      [routerLink]="['/simple-app']"
-      [queryParams]="{ dir: 'rtl' }"
+      [routerLink]="[link.path]"
+      [queryParams]="{ dir: link.dir }"
       routerLinkActive="active"
     >
-      Simple app (HTML, CSS, JS)
+      {{ link.label }}
     </a>
+    }
   </div>
   <router-outlet />
 </div>
