@@ -26,5 +26,15 @@ export class AppComponent {
       dir: 'ltr',
     },
     { path: 'dot-net', label: 'ASP.NET Guide', dir: 'ltr' },
+    {
+      path: 'problem-solving-practice',
+      label: 'Problem Solving Practice',
+      dir: 'ltr',
+    },
+    {
+      path: 'sorting-algo-pseudocode',
+      label: 'Sorting Algo pseudocode',
+      dir: 'ltr',
+    },
   ];
 }
