@@ -26,5 +26,6 @@ export class AppComponent {
       dir: 'ltr',
     },
     { path: 'dot-net', label: 'ASP.NET Guide', dir: 'ltr' },
+    { path: 'ngrx-store', label: 'ngrx store', dir: 'ltr' },
   ];
 }
