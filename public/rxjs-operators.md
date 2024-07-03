@@ -1987,3 +1987,575 @@ export class DashboardComponent implements OnInit {
    - Handles stopping the polling of updates using a subscription.
 
 ---
+
+# `concatMap`, `switchMap`, and `mergeMap`
+
+---
+
+Certainly! Below are the implementations of the described use cases in an Angular service.
+
+### User Registration Process with `concatMap`
+
+#### Angular Service
+
+```typescript
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { concatMap } from "rxjs/operators";
+
+@Injectable({
+  providedIn: "root",
+})
+export class UserService {
+  private apiUrl = "https://api.example.com";
+
+  constructor(private http: HttpClient) {}
+
+  createUser(userData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/users`, userData);
+  }
+
+  sendWelcomeEmail(userId: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/users/${userId}/welcome-email`, {});
+  }
+
+  logRegistration(userId: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/logs`, { userId, action: "register" });
+  }
+
+  registerUser(userData: any): Observable<any> {
+    return this.createUser(userData).pipe(
+      concatMap((user) => this.sendWelcomeEmail(user.id)),
+      concatMap((emailResponse) => this.logRegistration(emailResponse.userId))
+    );
+  }
+}
+```
+
+### Live Search Suggestions with `switchMap`
+
+#### Angular Service
+
+```typescript
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable, fromEvent } from "rxjs";
+import { debounceTime, map, switchMap } from "rxjs/operators";
+
+@Injectable({
+  providedIn: "root",
+})
+export class SearchService {
+  private apiUrl = "https://api.example.com";
+
+  constructor(private http: HttpClient) {}
+
+  getSearchSuggestions(query: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/search/suggestions?q=${query}`);
+  }
+
+  setupLiveSearch(inputElement: HTMLInputElement): Observable<any> {
+    return fromEvent(inputElement, "input").pipe(
+      debounceTime(300),
+      map((event: any) => event.target.value),
+      switchMap((query) => this.getSearchSuggestions(query))
+    );
+  }
+}
+```
+
+### Bulk Email Sending with `mergeMap`
+
+#### Angular Service
+
+```typescript
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable, from } from "rxjs";
+import { mergeMap } from "rxjs/operators";
+
+@Injectable({
+  providedIn: "root",
+})
+export class EmailService {
+  private apiUrl = "https://api.example.com";
+
+  constructor(private http: HttpClient) {}
+
+  sendEmail(recipient: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/send-email`, {
+      recipientId: recipient.id,
+      email: recipient.email,
+      subject: "Special Offer",
+      message: "Hello, we have a special offer for you!",
+    });
+  }
+
+  sendBulkEmails(recipients: any[]): Observable<any> {
+    return from(recipients).pipe(mergeMap((recipient) => this.sendEmail(recipient)));
+  }
+}
+```
+
+### Usage in Components
+
+Here are example usages of these services in Angular components:
+
+#### User Registration Component
+
+```typescript
+import { Component } from "@angular/core";
+import { UserService } from "./user.service";
+
+@Component({
+  selector: "app-register",
+  template: `<button (click)="registerUser()">Register User</button>`,
+})
+export class RegisterComponent {
+  constructor(private userService: UserService) {}
+
+  registerUser() {
+    const userData = { username: "john_doe", email: "john@example.com" };
+    this.userService.registerUser(userData).subscribe({
+      next: (response) => console.log("User registration process completed:", response),
+      error: (error) => console.error("Error during user registration process:", error),
+    });
+  }
+}
+```
+
+#### Live Search Component
+
+```typescript
+import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
+import { SearchService } from "./search.service";
+
+@Component({
+  selector: "app-search",
+  template: `
+    <input #searchBox type="text" placeholder="Search..." />
+    <ul id="suggestions-box"></ul>
+  `,
+})
+export class SearchComponent implements OnInit {
+  @ViewChild("searchBox") searchBox: ElementRef;
+
+  constructor(private searchService: SearchService) {}
+
+  ngOnInit() {
+    this.searchService.setupLiveSearch(this.searchBox.nativeElement).subscribe({
+      next: (suggestions) => {
+        const suggestionsBox = document.getElementById("suggestions-box");
+        suggestionsBox.innerHTML = suggestions.map((item) => `<li>${item}</li>`).join("");
+      },
+      error: (error) => console.error("Error fetching suggestions:", error),
+    });
+  }
+}
+```
+
+#### Bulk Email Component
+
+```typescript
+import { Component } from "@angular/core";
+import { EmailService } from "./email.service";
+
+@Component({
+  selector: "app-email",
+  template: `<button (click)="sendEmails()">Send Emails</button>`,
+})
+export class EmailComponent {
+  constructor(private emailService: EmailService) {}
+
+  sendEmails() {
+    const recipients = [
+      { id: 1, email: "alice@example.com" },
+      { id: 2, email: "bob@example.com" },
+      { id: 3, email: "carol@example.com" },
+    ];
+
+    this.emailService.sendBulkEmails(recipients).subscribe({
+      next: (response) => console.log("Email sent:", response),
+      error: (error) => console.error("Error sending email:", error),
+    });
+  }
+}
+```
+
+---
+
+Certainly! Here's a table summarizing the differences between `concatMap`, `switchMap`, and `mergeMap` in RxJS:
+
+| **Aspect**             | **concatMap**                                                  | **switchMap**                                                         | **mergeMap**                                                                              |
+| ---------------------- | -------------------------------------------------------------- | --------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| **Order of Execution** | Maintains order of inner observables, sequentially.            | Only the most recent inner observable is maintained.                  | Inner observables execute concurrently.                                                   |
+| **Concurrency**        | Processes one inner observable at a time.                      | Cancels previous inner observables if a new one comes in.             | Processes all inner observables concurrently.                                             |
+| **Use Case**           | Sequential operations that need to complete in order.          | Operations where only the latest result matters (e.g., autocomplete). | Concurrent operations that can run in parallel (e.g., bulk requests).                     |
+| **Cancellation**       | Does not cancel inner observables, waits for each to complete. | Cancels previous inner observables upon receiving a new one.          | Does not cancel inner observables, allows all to run to completion.                       |
+| **Performance**        | May be slower due to sequential processing.                    | More responsive to latest inputs, better for dynamic inputs.          | Potentially faster due to parallel processing, but can overwhelm if too many are started. |
+| **Example Scenario**   | User registration steps (create user, send email, log event).  | Live search suggestions in a search box.                              | Sending bulk emails to a list of recipients.                                              |
+
+### Detailed Description
+
+- **Order of Execution**:
+
+  - `concatMap`: Ensures each inner observable completes before starting the next.
+  - `switchMap`: Switches to a new inner observable, canceling the previous ones.
+  - `mergeMap`: Starts all inner observables without waiting for any to complete.
+
+- **Concurrency**:
+
+  - `concatMap`: Only one inner observable runs at a time.
+  - `switchMap`: Only the latest inner observable runs, previous ones are canceled.
+  - `mergeMap`: All inner observables can run concurrently.
+
+- **Use Case**:
+
+  - `concatMap`: Useful for tasks that must follow a strict sequence.
+  - `switchMap`: Ideal for scenarios where only the latest data matters, like autocomplete or live search.
+  - `mergeMap`: Suitable for tasks that benefit from parallel execution, like bulk operations or simultaneous requests.
+
+- **Cancellation**:
+
+  - `concatMap`: Does not cancel any observables, waits for each to finish.
+  - `switchMap`: Cancels the previous observable when a new one is emitted.
+  - `mergeMap`: Does not cancel any observables, lets all complete independently.
+
+- **Performance**:
+  - `concatMap`: Can be slower due to waiting for each observable to finish before starting the next.
+  - `switchMap`: Can be more efficient in scenarios requiring only the latest result.
+  - `mergeMap`: Can be faster due to parallel execution but requires careful handling to avoid overwhelming the system.
+
+---
+
+Certainly! `combineLatest` is a powerful operator in RxJS that is often used in scenarios where you need to combine the latest values from multiple observables. Here’s a real-world use case for `combineLatest`.
+
+### Use Case: Real-Time Dashboard with Multiple Data Sources
+
+#### Scenario
+
+Imagine you are building a real-time dashboard for monitoring user activity and system status in an application. You need to display the latest user count and system health status together. These data points come from two different APIs, which may emit values at different intervals.
+
+#### Angular Service
+
+```typescript
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable, timer } from "rxjs";
+import { combineLatest } from "rxjs/operators";
+import { map, switchMap } from "rxjs/operators";
+
+@Injectable({
+  providedIn: "root",
+})
+export class DashboardService {
+  private userCountUrl = "https://api.example.com/user-count";
+  private systemStatusUrl = "https://api.example.com/system-status";
+
+  constructor(private http: HttpClient) {}
+
+  getUserCount(): Observable<number> {
+    // Polling every 10 seconds for user count
+    return timer(0, 10000).pipe(switchMap(() => this.http.get<number>(this.userCountUrl)));
+  }
+
+  getSystemStatus(): Observable<string> {
+    // Polling every 15 seconds for system status
+    return timer(0, 15000).pipe(switchMap(() => this.http.get<string>(this.systemStatusUrl)));
+  }
+
+  getDashboardData(): Observable<{ userCount: number; systemStatus: string }> {
+    return combineLatest([this.getUserCount(), this.getSystemStatus()]).pipe(map(([userCount, systemStatus]) => ({ userCount, systemStatus })));
+  }
+}
+```
+
+#### Angular Component
+
+```typescript
+import { Component, OnInit } from "@angular/core";
+import { DashboardService } from "./dashboard.service";
+
+@Component({
+  selector: "app-dashboard",
+  template: `
+    <div>
+      <h3>Real-Time Dashboard</h3>
+      <p>User Count: {{ userCount }}</p>
+      <p>System Status: {{ systemStatus }}</p>
+    </div>
+  `,
+})
+export class DashboardComponent implements OnInit {
+  userCount: number;
+  systemStatus: string;
+
+  constructor(private dashboardService: DashboardService) {}
+
+  ngOnInit() {
+    this.dashboardService.getDashboardData().subscribe({
+      next: (data) => {
+        this.userCount = data.userCount;
+        this.systemStatus = data.systemStatus;
+      },
+      error: (error) => console.error("Error fetching dashboard data:", error),
+    });
+  }
+}
+```
+
+### Explanation
+
+- **Polling Mechanism**: The `getUserCount` and `getSystemStatus` methods use `timer` to create an observable that emits at specified intervals (every 10 seconds for user count and every 15 seconds for system status).
+- **Combining Latest Values**: The `getDashboardData` method uses `combineLatest` to combine the latest values emitted by `getUserCount` and `getSystemStatus`.
+- **Real-Time Updates**: The component subscribes to the combined observable, ensuring that it always displays the most recent user count and system status.
+
+---
+
+### catchError, retry, retryWhen
+
+Certainly! Here are real-world use cases for `catchError`, `retry`, and `retryWhen` in RxJS, implemented in an Angular service and component.
+
+### Use Case for `catchError`
+
+#### Scenario: Handling API Errors Gracefully
+
+When making API calls, errors can occur (e.g., network issues, server errors). You want to handle these errors gracefully and possibly show a user-friendly message.
+
+#### Angular Service
+
+```typescript
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { Observable, throwError } from "rxjs";
+import { catchError } from "rxjs/operators";
+
+@Injectable({
+  providedIn: "root",
+})
+export class DataService {
+  private apiUrl = "https://api.example.com/data";
+
+  constructor(private http: HttpClient) {}
+
+  getData(): Observable<any> {
+    return this.http.get<any>(this.apiUrl).pipe(catchError(this.handleError));
+  }
+
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    let errorMessage = "An unknown error occurred!";
+    if (error.error instanceof ErrorEvent) {
+      // Client-side error
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // Server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(errorMessage);
+  }
+}
+```
+
+#### Angular Component
+
+```typescript
+import { Component, OnInit } from "@angular/core";
+import { DataService } from "./data.service";
+
+@Component({
+  selector: "app-data",
+  template: `
+    <div>
+      <h3>Data</h3>
+      <p *ngIf="errorMessage">{{ errorMessage }}</p>
+      <ul>
+        <li *ngFor="let item of data">{{ item }}</li>
+      </ul>
+    </div>
+  `,
+})
+export class DataComponent implements OnInit {
+  data: any[] = [];
+  errorMessage: string;
+
+  constructor(private dataService: DataService) {}
+
+  ngOnInit() {
+    this.dataService.getData().subscribe({
+      next: (response) => (this.data = response),
+      error: (error) => (this.errorMessage = error),
+    });
+  }
+}
+```
+
+### Use Case for `retry`
+
+#### Scenario: Retrying Failed API Calls
+
+Sometimes, transient errors occur (e.g., temporary network issues). Retrying the API call a few times before giving up can often resolve these issues.
+
+#### Angular Service
+
+```typescript
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { catchError, retry } from "rxjs/operators";
+
+@Injectable({
+  providedIn: "root",
+})
+export class DataService {
+  private apiUrl = "https://api.example.com/data";
+
+  constructor(private http: HttpClient) {}
+
+  getData(): Observable<any> {
+    return this.http.get<any>(this.apiUrl).pipe(
+      retry(3), // Retry up to 3 times before failing
+      catchError(this.handleError)
+    );
+  }
+
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    let errorMessage = "An unknown error occurred!";
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(errorMessage);
+  }
+}
+```
+
+#### Angular Component
+
+```typescript
+import { Component, OnInit } from "@angular/core";
+import { DataService } from "./data.service";
+
+@Component({
+  selector: "app-data",
+  template: `
+    <div>
+      <h3>Data</h3>
+      <p *ngIf="errorMessage">{{ errorMessage }}</p>
+      <ul>
+        <li *ngFor="let item of data">{{ item }}</li>
+      </ul>
+    </div>
+  `,
+})
+export class DataComponent implements OnInit {
+  data: any[] = [];
+  errorMessage: string;
+
+  constructor(private dataService: DataService) {}
+
+  ngOnInit() {
+    this.dataService.getData().subscribe({
+      next: (response) => (this.data = response),
+      error: (error) => (this.errorMessage = error),
+    });
+  }
+}
+```
+
+### Use Case for `retryWhen`
+
+#### Scenario: Retrying Failed API Calls with Custom Logic
+
+In some cases, you might want to add custom logic before retrying an API call, such as waiting for a certain amount of time or logging the error.
+
+#### Angular Service
+
+```typescript
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable, throwError, timer } from "rxjs";
+import { catchError, retryWhen, delayWhen } from "rxjs/operators";
+
+@Injectable({
+  providedIn: "root",
+})
+export class DataService {
+  private apiUrl = "https://api.example.com/data";
+
+  constructor(private http: HttpClient) {}
+
+  getData(): Observable<any> {
+    return this.http.get<any>(this.apiUrl).pipe(
+      retryWhen((errors) =>
+        errors.pipe(
+          delayWhen(() => timer(2000)), // Wait 2 seconds before retrying
+          map((error, i) => {
+            if (i >= 3) {
+              throw error; // Give up after 3 retries
+            }
+            console.log(`Retrying... (${i + 1})`);
+            return error;
+          })
+        )
+      ),
+      catchError(this.handleError)
+    );
+  }
+
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    let errorMessage = "An unknown error occurred!";
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(errorMessage);
+  }
+}
+```
+
+#### Angular Component
+
+```typescript
+import { Component, OnInit } from "@angular/core";
+import { DataService } from "./data.service";
+
+@Component({
+  selector: "app-data",
+  template: `
+    <div>
+      <h3>Data</h3>
+      <p *ngIf="errorMessage">{{ errorMessage }}</p>
+      <ul>
+        <li *ngFor="let item of data">{{ item }}</li>
+      </ul>
+    </div>
+  `,
+})
+export class DataComponent implements OnInit {
+  data: any[] = [];
+  errorMessage: string;
+
+  constructor(private dataService: DataService) {}
+
+  ngOnInit() {
+    this.dataService.getData().subscribe({
+      next: (response) => (this.data = response),
+      error: (error) => (this.errorMessage = error),
+    });
+  }
+}
+```
+
+### Explanation
+
+- **`catchError`**: Used to handle errors by catching them and returning a fallback observable or throwing a custom error.
+- **`retry`**: Automatically retries the source observable a specified number of times before failing.
+- **`retryWhen`**: Provides more control over retry logic by allowing custom behavior between retries, such as delays or logging.
+
+---

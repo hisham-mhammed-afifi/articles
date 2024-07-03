@@ -29,6 +29,11 @@ export class AppComponent {
     { path: 'ngrx-store', label: 'ngrx store', dir: 'ltr' },
     { path: 'rxjs-operators', label: 'RxJS Operators', dir: 'ltr' },
     {
+      path: 'change-detection',
+      label: 'Change detection in Angular',
+      dir: 'ltr',
+    },
+    {
       path: 'problem-solving-practice',
       label: 'Problem Solving Practice',
       dir: 'ltr',
