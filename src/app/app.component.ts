@@ -34,6 +34,11 @@ export class AppComponent {
       dir: 'ltr',
     },
     {
+      path: 'dependency-injection',
+      label: 'Dependency injection in Angular',
+      dir: 'ltr',
+    },
+    {
       path: 'problem-solving-practice',
       label: 'Problem Solving Practice',
       dir: 'ltr',
