@@ -34,6 +34,11 @@ export class AppComponent {
       dir: 'ltr',
     },
     {
+      path: 'reactive-forms',
+      label: 'Reactive forms in Angular',
+      dir: 'ltr',
+    },
+    {
       path: 'dependency-injection',
       label: 'Dependency injection in Angular',
       dir: 'ltr',
