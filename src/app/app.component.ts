@@ -39,8 +39,18 @@ export class AppComponent {
       dir: 'ltr',
     },
     {
+      path: 'ngmodel',
+      label: 'NgModel in Angular',
+      dir: 'ltr',
+    },
+    {
       path: 'dependency-injection',
       label: 'Dependency injection in Angular',
+      dir: 'ltr',
+    },
+    {
+      path: 'scalable-project',
+      label: 'Scalable Angular project',
       dir: 'ltr',
     },
     {
