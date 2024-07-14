@@ -25,6 +25,11 @@ export class AppComponent {
       label: 'Angular tips and tricks',
       dir: 'ltr',
     },
+    {
+      path: 'angular-topics',
+      label: 'Angular topics',
+      dir: 'ltr',
+    },
     { path: 'dot-net', label: 'ASP.NET Guide', dir: 'ltr' },
     { path: 'ngrx-store', label: 'ngrx store', dir: 'ltr' },
     { path: 'rxjs-operators', label: 'RxJS Operators', dir: 'ltr' },
