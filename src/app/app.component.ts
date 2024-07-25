@@ -12,12 +12,18 @@ export class AppComponent {
   title = 'articles';
 
   links = [
+    { path: 'tree-shaking', label: 'Tree-shaking', dir: 'ltr' },
     { path: 'dotnet-backend', label: 'ASP.NET Core', dir: 'ltr' },
     { path: 'oop-python', label: 'OOP with python example', dir: 'ltr' },
     { path: 'simple-app', label: 'Simple app (HTML, CSS, JS)', dir: 'rtl' },
     { path: 'routing-in-angular', label: 'Routing in Angular', dir: 'ltr' },
     { path: 'problems', label: 'Problems', dir: 'ltr' },
     { path: 'solutions', label: 'Solutions', dir: 'ltr' },
+    {
+      path: 'important-topics-in-css',
+      label: 'Important topics CSS',
+      dir: 'ltr',
+    },
     { path: 'angular-advanced', label: 'Angular advanced', dir: 'ltr' },
     { path: 'angular-performance', label: 'Angular performance', dir: 'ltr' },
     {
@@ -66,6 +72,11 @@ export class AppComponent {
     {
       path: 'sorting-algo-pseudocode',
       label: 'Sorting Algo pseudocode',
+      dir: 'ltr',
+    },
+    {
+      path: 'sass-guide-with-angular-material',
+      label: 'SASS with angular material',
       dir: 'ltr',
     },
   ];
