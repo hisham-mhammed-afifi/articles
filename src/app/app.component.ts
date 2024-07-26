@@ -89,5 +89,15 @@ export class AppComponent {
       label: 'Practical Guide to Mobile-First Design Strategy',
       dir: 'ltr',
     },
+    {
+      path: 'habits-of-highly-productive-developers',
+      label: '14 Habits of Highly Productive Developers',
+      dir: 'ltr',
+    },
+    {
+      path: 'habits-of-highly-productive-developers-arabic',
+      label: 'عادات المبرمج الشاطر',
+      dir: 'rtl',
+    },
   ];
 }
