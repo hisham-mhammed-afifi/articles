@@ -79,5 +79,15 @@ export class AppComponent {
       label: 'SASS with angular material',
       dir: 'ltr',
     },
+    {
+      path: 'practical-guide-to-bem-methodology-in-css',
+      label: 'Practical Guide to BEM Methodology in CSS',
+      dir: 'ltr',
+    },
+    {
+      path: 'practical-guide-to-mobile-first-design-strategy',
+      label: 'Practical Guide to Mobile-First Design Strategy',
+      dir: 'ltr',
+    },
   ];
 }
