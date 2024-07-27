@@ -1,0 +1,12 @@
+<div class="flex">
+  @for ( link of links; track link.path) {
+  <a
+    class="btn"
+    [routerLink]="[link.path]"
+    [queryParams]="{ dir: link.dir }"
+    routerLinkActive="active"
+  >
+    {{ link.label }}
+  </a>
+  }
+</div>

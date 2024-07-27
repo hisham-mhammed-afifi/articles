@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MarkdownComponent } from 'ngx-markdown';
 
 @Component({
   selector: 'app-article',
   standalone: true,
-  imports: [MarkdownComponent],
+  imports: [MarkdownComponent, RouterLink],
   templateUrl: './article.component.html',
-  styleUrl: './article.component.css',
+  styles: [],
 })
 export class ArticleComponent {
   filePath = '';
