@@ -97,5 +97,10 @@ export class ListComponent {
       label: 'عادات المبرمج الشاطر',
       dir: 'rtl',
     },
+    {
+      path: 'ngrx-arabic',
+      label: 'ngrx عربي',
+      dir: 'rtl',
+    },
   ];
 }
