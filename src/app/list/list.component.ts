@@ -88,6 +88,16 @@ export class ListComponent {
       dir: 'ltr',
     },
     {
+      path: 'angular-topics-interceptors',
+      label: 'Angular topics | Interceptors',
+      dir: 'ltr',
+    },
+    {
+      path: 'angular-topics-reusable-services',
+      label: 'Angular topics | Reusable Services',
+      dir: 'ltr',
+    },
+    {
       path: 'habits-of-highly-productive-developers',
       label: '14 Habits of Highly Productive Developers',
       dir: 'ltr',
